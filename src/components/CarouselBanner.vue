@@ -55,7 +55,7 @@ import type { Translations } from '../i18n'
 const props = defineProps<{ t: Translations }>()
 
 const current = ref(0)
-let timer: number
+let timer: ReturnType<typeof setInterval> | undefined
 
 const badgeText = computed(() => props.t.nav.home === 'Home' ? '🏆 Open for Registration' : '🏆 報名開放中')
 
