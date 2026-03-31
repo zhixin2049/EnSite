@@ -117,7 +117,6 @@ import SiteFooter from '../components/SiteFooter.vue'
 import { messages } from '../i18n'
 import type { Locale } from '../i18n'
 
-const props = defineProps<{ locale: Locale }>()
 const route = useRoute()
 const showDialog = ref(false)
 const openFaq = ref<number | null>(null)
@@ -129,14 +128,6 @@ const locale = computed<Locale>(() => {
 })
 
 const t = computed(() => messages[locale.value])
-
-// Judge placeholder data
-const judgeProfiles = [
-  { name: locale.value === 'en' ? 'Dr. Sarah Chen' : '陳詠詩博士', role: locale.value === 'en' ? 'Art Curator, NY' : '藝術策展人，紐約', initials: 'SC', color: '#8B5CF6' },
-  { name: locale.value === 'en' ? 'Prof. Marco Rossi' : '馬可·羅西教授', role: locale.value === 'en' ? 'Fine Arts Professor' : '美術學教授', initials: 'MR', color: '#059669' },
-  { name: locale.value === 'en' ? 'Li Wei' : '李偉', role: locale.value === 'en' ? 'Digital Artist' : '數位藝術家', initials: 'LW', color: '#DC2626' },
-  { name: locale.value === 'en' ? 'Aiko Tanaka' : '田中愛子', role: locale.value === 'en' ? 'Art Critic' : '藝術評論家', initials: 'AT', color: '#D97706' }
-]
 
 function toggleFaq(i: number) {
   openFaq.value = openFaq.value === i ? null : i
@@ -222,7 +213,7 @@ function setHreflang(currentLang: string, currentUrl: string, altLang: string, a
 }
 
 function setJsonLd(lang: Locale, name: string, description: string, url: string) {
-  let el = document.getElementById('json-ld-schema')
+  let el = document.getElementById('json-ld-schema') as HTMLScriptElement | null
   if (!el) {
     el = document.createElement('script')
     el.id = 'json-ld-schema'
